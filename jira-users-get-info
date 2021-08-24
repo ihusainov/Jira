@@ -1,0 +1,17 @@
+--list of users that either not logged into JIRA at all, or have not logged over a year.
+SELECT  u.user_name as "Username",
+    u.display_name as "Full Name",
+    to_timestamp(CAST(a.attribute_value as bigint)/1000) as "Last Login"
+FROM cwd_user u
+    LEFT JOIN cwd_user_attributes a ON u.id = a.user_id AND attribute_name = 'login.lastLoginMillis'
+WHERE to_timestamp(CAST(a.attribute_value as bigint)/1000) <= current_date - 365 OR a.attribute_value IS NULL
+ORDER BY a.attribute_value;
+
+
+--update to deactivate the users returned by the query above
+update cwd_user u
+set active = 0
+WHERE u.id in (SELECT  u2.id
+FROM cwd_user u2
+    LEFT JOIN cwd_user_attributes a ON u2.id = a.user_id AND attribute_name = 'login.lastLoginMillis'
+WHERE to_timestamp(CAST(a.attribute_value as bigint)/1000) <= current_date-365 OR a.attribute_value IS NULL)
