@@ -1,0 +1,11 @@
+
+Открыли таск в джире первое что смотрим https://jira-server.ru/plugins/servlet/cluster-monitoring
+
+nginx ->
+ssh -c systemctl restart jira
+wait
+check via jira-server-local.ru
+Enable nginx
+включаем в группу nginx - когда нода будет доступна по запасному каналу, и нету реиндексов
+
+Далее начать смотреть ченджи и логи
