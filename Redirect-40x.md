@@ -21,7 +21,7 @@ and change this to be
 
 Save that web.xml file
 
-**Create a new file 404.html under <jira-install>/atlassian-jira/. We can use any HTML script like following to modify the custom page.**
+**Create a new file 404.html under <JIRA-install>/atlassian-jira. We can use any HTML script like following to modify the custom page.**
 ```
 <html>
     <head>
